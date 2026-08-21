@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Building2, Search, ArrowRight } from "lucide-react";
-import type { Company } from "@prisma/client";
+import type { Company } from "@/generated/prisma/client";
 
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);

@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
         const equivalentMappings = await prisma.levelMapping.findMany({
           where: {
             equivalentRank: sourceMapping.equivalentRank,
-            companyName: { not: { equals: normalizedSourceCompany, mode: 'insensitive' } }
+            companyName: { not: normalizedSourceCompany }
           }
         });
 
