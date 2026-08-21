@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  id                  String        @id @default(uuid())
+  name                String        @unique
+  website             String?
+  logoUrl             String?
+  averageCompensation Float         @default(0)
+  entryCount          Int           @default(0)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  salaries            SalaryEntry[]
+}
+
+model SalaryEntry {
+  id                String   @id @default(uuid())
+  companyId         String
+  company           Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  title             String   // e.g. "Software Engineer", "Product Manager"
+  level             String   // e.g. "L4", "E5", "Senior"
+  base              Float    // Base salary per year
+  stock             Float    // Stock/Equity per year
+  bonus             Float    // Bonus per year
+  totalCompensation Float    // Calculated Base + Stock + Bonus
+  location          String   // e.g. "San Francisco, CA", "Bangalore, India"
+  yearsOfExperience Float
+  yearsAtCompany    Float?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model LevelMapping {
+  id             String   @id @default(uuid())
+  companyName    String   // Normalized company name, e.g. "Google"
+  level          String   // Company-specific level name, e.g. "L4"
+  equivalentRank Int      // Equivalence ranking (e.g. L3/E3 = 3, L4/E4 = 4, L5/E5 = 5)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([companyName, level])
+}
