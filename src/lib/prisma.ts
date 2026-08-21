@@ -30,13 +30,13 @@ if (typeof window === 'undefined') {
   }
 
   const pool =
-    globalForPrisma.pgPool ??
-    new pg.Pool({
-      connectionString: dbUrl,
-      max: 10,
-      idleTimeoutMillis: 1,
-      connectionTimeoutMillis: 0,
-    });
+  globalForPrisma.pgPool ??
+  new pg.Pool({
+    connectionString: dbUrl,
+    max: 10,
+    idleTimeoutMillis: 30000,       // 30s — reasonable, not 1ms
+    connectionTimeoutMillis: 10000, // 10s to establish a new connection
+  });
 
   pool.on('error', (err) => {
     console.error('Unexpected error on idle pg client', err);
