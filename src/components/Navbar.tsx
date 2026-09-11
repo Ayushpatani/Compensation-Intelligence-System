@@ -9,6 +9,7 @@ import {
   Calculator,
   DollarSign,
   Landmark,
+  Lightbulb,
   Menu,
   PlusCircle,
   Target,
@@ -19,6 +20,7 @@ const navItems = [
   { href: '/companies', label: 'Companies', icon: Building2 },
   { href: '/compare', label: 'Compare', icon: BarChart2 },
   { href: '/benchmark', label: 'Benchmark', icon: Target },
+  { href: '/insights', label: 'Insights', icon: Lightbulb },
   { href: '/offer-analyzer', label: 'Offer Analyzer', icon: BadgeDollarSign },
   { href: '/calculator', label: 'Calculator', icon: Calculator },
 ];
